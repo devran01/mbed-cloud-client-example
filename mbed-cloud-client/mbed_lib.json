@@ -30,7 +30,7 @@
             "help": "Enables Platform Security Architecture (PSA) feature",
             "options": [ "null", "1" ],
             "default": null,
-            "value": null
+            "value": 1
         }
     },
     "macros" : [

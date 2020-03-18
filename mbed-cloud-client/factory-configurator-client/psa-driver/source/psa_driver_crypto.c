@@ -535,7 +535,7 @@ void psa_drv_crypto_fini(void)
 
     SA_PV_LOG_TRACE_FUNC_ENTER_NO_ARGS();
 
-    mbedtls_psa_crypto_free();
+    //mbedtls_psa_crypto_free();
 
     SA_PV_LOG_TRACE_FUNC_EXIT_NO_ARGS();
     return;

@@ -1,6 +1,9 @@
 {
     "macros": [
-        "ARM_UC_USE_PAL_BLOCKDEVICE=1"
+        "ARM_UC_USE_PAL_BLOCKDEVICE=1",
+        "TFM_MULTI_CORE_MULTI_CLIENT_CALL=1",
+        "NUM_MAILBOX_QUEUE_SLOT=4",
+        "MBEDTLS_USE_PSA_CRYPTO"
     ],
     "target_overrides": {
         "*": {
@@ -272,6 +275,8 @@
         },
         "mbed-cloud-client-update-buffer-size": {
             "value"     : null
-        }
+        },
+        "os-mutex-num": 4,
+        "os-semaphore-num": 4
     }
 }

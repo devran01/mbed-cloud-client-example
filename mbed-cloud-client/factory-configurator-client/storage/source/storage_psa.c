@@ -20,9 +20,6 @@
 #include "pv_error_handling.h"
 #include "storage_internal.h"
 #include "pv_macros.h"
-#ifdef TARGET_LIKE_MBED
-#include "psa/lifecycle.h"
-#endif
 #include "psa/crypto_types.h"
 #include "psa/crypto.h"
 #include "fcc_malloc.h"
@@ -39,7 +36,6 @@ extern bool g_kcm_initialized;
 */
 static kcm_status_e register_preprovisioned_items()
 {
-    kcm_status_e kcm_status = KCM_STATUS_SUCCESS;
     uint8_t kcm_item_name[STORAGE_COMPLETE_ITEM_NAME_SIZE] = { 0 };
     sem_preprovisioned_item_data_s *storage_se_items_data = NULL;
 
@@ -1018,32 +1014,32 @@ kcm_status_e storage_finalize(void)
 
 kcm_status_e storage_reset(void)
 {
-    kcm_status_e kcm_status;
+//     kcm_status_e kcm_status;
 
-    SA_PV_LOG_TRACE_FUNC_ENTER_NO_ARGS();
+//     SA_PV_LOG_TRACE_FUNC_ENTER_NO_ARGS();
 
-    kcm_status = ksa_reset();
-    SA_PV_ERR_RECOVERABLE_RETURN_IF((kcm_status != KCM_STATUS_SUCCESS), kcm_status, "Failed for ksa reset");
+//     kcm_status = ksa_reset();
+//     SA_PV_ERR_RECOVERABLE_RETURN_IF((kcm_status != KCM_STATUS_SUCCESS), kcm_status, "Failed for ksa reset");
 
-#ifdef TARGET_LIKE_MBED
-    psa_status_t psa_status;
+// #ifdef TARGET_LIKE_MBED
+//     psa_status_t psa_status;
 
-    /* Go back to an empty storage state
-    * * In case of non-PSA boards (such as K64F and K66F) with KVSTORE config, this is not really needed, as kv_reset()
-    *   called by storage_reset()) as PSA and RBP items are stored in the same TDBStore. In this case, the call will
-    *   get us from an empty storage state to an empty storage state.
-    * * In case of a user provided SST, we do not know whether pal_SSTReset() will also remove the PSA storage (probably
-    *   not), so we probably need this call.
-    * * In case of actual PSA boards, with KVSTORE config, we must call this function so the PSA storage is removed.
-    * * Irrelevant for PSA over Linux
-    */
-    psa_status = mbed_psa_reboot_and_request_new_security_state(PSA_LIFECYCLE_ASSEMBLY_AND_TEST);
-    SA_PV_ERR_RECOVERABLE_RETURN_IF((psa_status != PSA_SUCCESS), KCM_STATUS_ERROR, "Failed for mbed_psa_reboot_and_request_new_security_state() (status %" PRIu32 ")", psa_status);
-#endif
+//     /* Go back to an empty storage state
+//     * * In case of non-PSA boards (such as K64F and K66F) with KVSTORE config, this is not really needed, as kv_reset()
+//     *   called by storage_reset()) as PSA and RBP items are stored in the same TDBStore. In this case, the call will
+//     *   get us from an empty storage state to an empty storage state.
+//     * * In case of a user provided SST, we do not know whether pal_SSTReset() will also remove the PSA storage (probably
+//     *   not), so we probably need this call.
+//     * * In case of actual PSA boards, with KVSTORE config, we must call this function so the PSA storage is removed.
+//     * * Irrelevant for PSA over Linux
+//     */
+//     psa_status = mbed_psa_reboot_and_request_new_security_state(PSA_LIFECYCLE_ASSEMBLY_AND_TEST);
+//     SA_PV_ERR_RECOVERABLE_RETURN_IF((psa_status != PSA_SUCCESS), KCM_STATUS_ERROR, "Failed for mbed_psa_reboot_and_request_new_security_state() (status %" PRIu32 ")", psa_status);
+// #endif
 
-    SA_PV_LOG_TRACE_FUNC_EXIT_NO_ARGS();
+//     SA_PV_LOG_TRACE_FUNC_EXIT_NO_ARGS();
 
-    return kcm_status;
+    return KCM_STATUS_SUCCESS;
 }
 
 
